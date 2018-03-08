@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="proto.actor" Version="0.1.16" />
+    <PackageReference Include="proto.remote" Version="0.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlusGame.Common\PlusGame.Common.csproj" />
+    <ProjectReference Include="..\PlusGame.Message\PlusGame.Message.csproj" />
+  </ItemGroup>
+
+</Project>

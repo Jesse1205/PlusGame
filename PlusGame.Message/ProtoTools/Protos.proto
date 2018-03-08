@@ -1,0 +1,76 @@
+﻿syntax = "proto3";
+package PlusGame.Message;
+option csharp_namespace = "PlusGame.Message";
+import "Proto.Actor/Protos.proto";
+
+message Done {}
+
+message RegisterPid {
+    string Name = 1;
+    actor.PID Sender = 2;
+}
+
+message UnRegisterPid{
+    string Name = 1;
+}
+
+message RequestPid {
+    string Name = 1;
+}
+
+message ResponsePid{
+    actor.PID Sender = 1;
+}
+
+message Ping {
+}
+message Pong {
+}
+
+//外网数据
+message RequestPackage{
+    int32 MsgId = 1;
+    int32 ActionId = 2;
+    string SessionId = 3;
+    int32 UserId = 4;
+    string St = 5;
+
+    int64 ReceiveTime = 6;
+
+    map<string,string> DictData = 7;
+    //异步使用
+    string ActorName = 8;
+}
+
+message ResponsePackage{
+    int32 MsgId = 1;
+    int32 ActionId = 2;
+    string SessionId = 3;
+    int32 UserId = 4;
+    string St = 5;
+
+    int64 ReceiveTime = 6;
+    int64 ResponseTime = 7;
+
+    int32 ErrorCode = 8;
+    string ErrorInfo = 9;
+
+    string Data = 10;
+}
+
+//内外数据
+message RequestData{
+	string EventId = 1;
+    int32 MessageType = 2;
+    string MessageData = 3;
+    //异步使用
+    string ActorName = 4;
+}
+
+message ResponseData{
+	string EventId = 1;
+    int32 MessageType = 2;
+    int32 ErrorCode = 3;
+    string ErrorInfo = 4;
+    string Data = 5;
+}
