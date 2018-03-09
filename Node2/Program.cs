@@ -45,18 +45,17 @@ namespace Node2
 
         static int count;
 
-        static void LoadData(PID pid,int actionId)
+        static void LoadData(PID pid, int actionId)
         {
-            var subscribe = EventSystem.Instance.Subscribe(Callback, Dispatchers.SynchronousDispatcher);
+            var subscribe = EventSystem.Instance.Subscribe((data) =>
+            {
+                Console.WriteLine(data);
+            }, Dispatchers.SynchronousDispatcher);
+
             pid.Tell(new RequestData() { EventId = subscribe.Id.ToString(), MessageData = actionId.ToString() });
             //var package = await pid.RequestAsync<ResponsePackage>(new RequestPackage() { ActionId = actionId, ReceiveTime = DateTime.Now.Ticks });
             //dict.Add(package.ActionId, (int)(package.ResponseTime - package.ReceiveTime));
             //Console.WriteLine("ResponsePackage:{0}", package.ActionId);
-        }
-
-        static void Callback(object data)
-        {
-            Console.WriteLine(data);
         }
 
         public class NodeActor : IActor

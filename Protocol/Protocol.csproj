@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlusGame.Common\PlusGame.Common.csproj" />
-    <ProjectReference Include="..\PlusGame.Framework\PlusGame.Framework.csproj" />
+    <ProjectReference Include="..\PlusGame.Message\PlusGame.Message.csproj" />
   </ItemGroup>
 
 </Project>

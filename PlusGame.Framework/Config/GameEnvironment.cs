@@ -11,7 +11,7 @@ namespace PlusGame.Framework.Config
 {
     public static class GameEnvironment
     {
-        private readonly static string configPath = "config";
+        private readonly static string configPath = "Config";
 
         private static AppConfig appConfig = new AppConfig();
         private static RedisConfig redisConfig = new RedisConfig();
@@ -40,7 +40,7 @@ namespace PlusGame.Framework.Config
                 MessageStructure.EnableGzip = socketConfig.EnableActionGZip;
                 MessageStructure.EnableGzipMinByte = socketConfig.ActionGZipOutLength;
 
-                actionDispatcher = new PlusDispatcher();
+                actionDispatcher = new ProtoDispatcher();
             }
             catch (Exception ex)
             {
