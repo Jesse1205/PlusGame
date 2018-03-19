@@ -28,7 +28,7 @@ namespace PlusGame.Framework.Contract
         /// <param name="e"></param>
         /// <param name="package"></param>
         /// <returns></returns>
-        bool TryDecodePackage(IByteBuffer data, out RequestPackage package);
+        bool TryDecodePackage(IByteBuffer buffer, out RequestPackage package);
 
         /// <summary>
         /// encode package for socket
@@ -242,12 +242,17 @@ namespace PlusGame.Framework.Contract
         /// <param name="e"></param>
         /// <param name="package"></param>
         /// <returns></returns>
-        public bool TryDecodePackage(IByteBuffer data, out RequestPackage package)
+        public bool TryDecodePackage(IByteBuffer buffer, out RequestPackage package)
         {
             package = null;
             try
             {
-                package = RequestPackage.Parser.ParseFrom(data.Array);
+                int startIndex = buffer.ArrayOffset;
+                int length = buffer.Capacity;
+                byte[] data = new byte[length];
+                Buffer.BlockCopy(buffer.Array, startIndex, data, 0, length);
+
+                package = RequestPackage.Parser.ParseFrom(data);
                 //统计时间
                 package.ReceiveTime = DateTime.Now.Ticks;
             }

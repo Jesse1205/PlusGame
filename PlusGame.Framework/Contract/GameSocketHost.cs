@@ -39,7 +39,7 @@ namespace PlusGame.Framework.Contract
                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
                    {
                        IChannelPipeline pipeline = channel.Pipeline;
-                       pipeline.AddLast(new LoggingHandler("SRV-CONN"));
+                       //pipeline.AddLast(new LoggingHandler("SRV-CONN"));
                        //pipeline.AddLast("timeout", new IdleStateHandler(0, 0, 60));
                        pipeline.AddLast("framing-enc", new LengthFieldPrepender(GameEnvironment.SocketConfig.ByteOrder, 
                            GameEnvironment.SocketConfig.PrePackageLength, 0, false));

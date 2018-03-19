@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using Newtonsoft.Json;
 using PlusGame.Message;
 using System;
 using System.Diagnostics;
@@ -47,7 +48,7 @@ namespace Protocol
             request.DictData["sign"] = "d3418b5383ab375ee7c8bcf0cf0477a8";
             var message = request as IMessage;
 
-            var sendData = message.ToByteArray();
+            var sendData = message.ToByteArray(); //Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message)); //message.ToByteArray();
 
             byte[] sendHeader = BitConverter.GetBytes(sendData.Length);
             byte[] sendTotal = new byte[sendHeader.Length + sendData.Length];
@@ -76,7 +77,8 @@ namespace Protocol
                 byte[] buffer = new byte[2048];
                 while (true)
                 {
-                    receiveLen += socket.Receive(buffer);
+                    var len = socket.Receive(buffer);
+                    receiveLen += len;
                     //while (socket.Receive(buffer) > 0)
                     //{
                     //    Interlocked.Increment(ref receiveCount);
@@ -85,7 +87,7 @@ namespace Protocol
                     //        reset.Set();
                     //    }
                     //}
-                    if (receiveLen >= totalCount * 100)
+                    if (receiveLen >= totalCount * sendTotal.Length)
                     {
                         reset.Set();
                     }
